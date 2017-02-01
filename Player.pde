@@ -1,13 +1,13 @@
-class Player
+class Player extends GameObject
 {
-  float x, y, speed;
-  PShape shape;
+  int ammo;
   
   Player(float x, float y)
   {
     this.x = x;
     this.y = y;
     
+    ammo = 200;
     speed = 2;
   }
   
@@ -21,6 +21,13 @@ class Player
     shape.endShape(CLOSE);
   }
   
+  void fire()
+  {
+    if(frameCount % 5 == 0)
+    {
+      amunition.add(new Bullet(this.x, this.y));
+    }
+  }
   
   void render()
   {
@@ -33,16 +40,18 @@ class Player
   {
     if(checkKey(LEFT))
     {
-      x -= speed;
+      this.x -= speed;
     }
     
     if(checkKey(RIGHT))
     {
-      x += speed;
+      this.x 
+  += speed;
     }
     
     if(checkKey(UP))
     {
+      fire();
     }
     
     if(checkKey(DOWN))

@@ -43,12 +43,10 @@ class Player
     
     if(checkKey(UP))
     {
-      y -= speed;
     }
     
     if(checkKey(DOWN))
     {
-      y += speed;
     }
     render();
   }

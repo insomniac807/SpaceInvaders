@@ -6,6 +6,8 @@ class Enemy1 extends Enemy
     this.x = x;
     this.y = y;
     this.speed = 5;
+    this.size = 50;
+    this.health = 2;
     create();
   }
   
@@ -14,8 +16,8 @@ class Enemy1 extends Enemy
     shape = createShape();
     shape.beginShape();
       shape.vertex(0, 0);
-      shape.vertex(-20, -30);
-      shape.vertex(20, -30);
+      shape.vertex(-size/2, -size/2);
+      shape.vertex(size/2, -size/2);
     shape.endShape(CLOSE);
   }
   
@@ -24,6 +26,7 @@ class Enemy1 extends Enemy
   {
     pushMatrix();
     update();
+    shapeMode(CENTER);
     shape(shape);
     popMatrix();
   }

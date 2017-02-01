@@ -7,7 +7,7 @@ class Player extends GameObject
     this.x = x;
     this.y = y;
     
-    ammo = 200;
+    ammo = 2000;
     speed = 2;
   }
   
@@ -25,13 +25,15 @@ class Player extends GameObject
   {
     if(frameCount % 5 == 0)
     {
-      amunition.add(new Bullet(this.x, this.y));
+      gameObjects.add(new Bullet(this.x, this.y));
     }
   }
   
   void render()
   {
+    update();
     create();
+    shapeMode(CORNER);
     shape(shape);
   }
   
@@ -46,7 +48,7 @@ class Player extends GameObject
     if(checkKey(RIGHT))
     {
       this.x 
-  += speed;
+      += speed;
     }
     
     if(checkKey(UP))
@@ -57,6 +59,5 @@ class Player extends GameObject
     if(checkKey(DOWN))
     {
     }
-    render();
   }
 }

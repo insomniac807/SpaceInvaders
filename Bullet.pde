@@ -10,16 +10,16 @@ class Bullet extends GameObject
   
   void render()
   {
+    pushMatrix();
+    update();
     stroke(255, 0, 0);
     line(x, y, x, y-5);
+    popMatrix();
   }
   
   void update()
   {
-    pushMatrix();
     y -= speed;
-    render();
-    popMatrix();
   }
   
 }

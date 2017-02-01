@@ -1,7 +1,7 @@
 Player player;
-ArrayList<Enemy1> easyEn;
-ArrayList<Enemy2> medEn;
-ArrayList<Bullet> amunition;
+
+ArrayList<GameObject> gameObjects;
+
 int numEnemies;
 
 boolean[] keys;
@@ -14,40 +14,27 @@ void setup()
   numEnemies = 10;
   
   keys = new boolean[1000];
-  
-  player = new Player(300, 500);
-  easyEn = new ArrayList<Enemy1>();
-  medEn = new ArrayList<Enemy2>();
-  amunition = new ArrayList<Bullet>();
+  gameObjects = new ArrayList<GameObject>();
+  gameObjects.add(new Player(300, 500));
   
   for( int i=0; i<numEnemies; i++)
   {
-    easyEn.add(new Enemy1(i*60+25, 50));
+    gameObjects.add(new Enemy1(i*60+25, 50));
+    gameObjects.add(new Enemy2(i*60+10, -15));
   }
-  for( int i=0; i<numEnemies; i++)
-  {
-    medEn.add(new Enemy2(i*60+10, -15));
-  }
+  
 }//end setup
 
 
 void draw()
 {
   background(0);
-  player.update();
   
-  for( int i=0; i < easyEn.size(); i++)
+  for( int i=0; i < gameObjects.size(); i++)
   {
-    easyEn.get(i).render();
+    gameObjects.get(i).render();
   }
-  for( int i=0; i < medEn.size(); i++)
-  {
-    medEn.get(i).render();
-  }
-  for( int i=0; i<amunition.size(); i++)
-  {
-      amunition.get(i).update();
-  }
+  
 }
 
 

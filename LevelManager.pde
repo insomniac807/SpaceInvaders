@@ -15,7 +15,14 @@ public class LevelManager
     textFont(menuOption, 32);
     if(menuSelect == 0)
     {
-      fill(255, 255, 0);
+      if(frameCount % 120 < 100)
+      {
+        fill(0, 255, 0);
+      }
+      else
+      {
+        fill(255);
+      }
     }
     else
     {
@@ -24,7 +31,14 @@ public class LevelManager
     text("New Game", width/3, height/2);
     if(menuSelect == 1)
     {
-      fill(255, 255, 0);
+      if(frameCount % 120 < 100)
+      {
+        fill(0, 255, 0);
+      }
+      else
+      {
+        fill(255);
+      }
     }
     else
     {
@@ -47,9 +61,10 @@ public class LevelManager
       
       if(gameObjects.get(i) instanceof Enemy)
       {
-        if(gameObjects.get(i).y == 600)
+        Enemy en = (Enemy)gameObjects.get(i);
+        if(en.y == 600 && en.alive)
         {
-          lives--;
+          die();
           if(lives <= 0)
           {
             gameOver = true;
@@ -62,5 +77,48 @@ public class LevelManager
     displayStats(player);
     
   }//end level1
+  
+  
+  public void quitScreen()
+  {
+    background(0);
+    textFont(title, 86);
+    fill(255);
+    text("Quit, Are You Sure?", width/9, height/4);
+    textFont(menuOption, 32);
+    if(menuSelect == 2)
+    {
+      if(frameCount % 120 < 100)
+      {
+        fill(0, 255, 0);
+      }
+      else
+      {
+        fill(255);
+      }
+    }
+    else
+    {
+      fill(255);
+    }
+    text("YES", width/6, height/2);
+    if(menuSelect == 3)
+    {
+      if(frameCount % 120 < 100)
+      {
+        fill(0, 255, 0);
+      }
+      else
+      {
+        fill(255);
+      }
+    }
+    else
+    {
+      fill(255);
+    }
+    text("NO", width*0.7, height/2);
+    
+  }//end quitScreen()
   
 }//end class

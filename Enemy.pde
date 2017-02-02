@@ -2,7 +2,6 @@ class Enemy extends GameObject
 {
   float size;
   int health;
-  boolean alive;
   
   void render()
   {
@@ -10,7 +9,7 @@ class Enemy extends GameObject
   
   void update()
   {
-    if(frameCount % 5 == 0 && !gameOver)
+    if(frameCount % 10 == 0 && !gameOver)
     {
       y += speed;
     }

@@ -13,7 +13,7 @@ class Bullet extends GameObject
     pushMatrix();
     update();
     stroke(255, 0, 0);
-    line(x, y, x, y-5);
+    ellipse(x, y, 2, 2);
     popMatrix();
   }
   

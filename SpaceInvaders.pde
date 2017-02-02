@@ -1,36 +1,30 @@
 LevelManager gameScreen;
-Player player;
 PFont title, menuOption, gameFont;
-
 ArrayList<GameObject> gameObjects;
-
-int numEnemies;
+Player player;
 //mode 0=menu: 1=level1:: menuSelect 0=newgame: 1=quit::
-int score, lives, mode, menuSelect;
-
+int score, lives, mode, menuSelect,  numEnemies;
 boolean[] keys;
 boolean gameOver;
 
 void setup()
 {
-  //fulScreen();
   size(600,600);
   gameScreen = new LevelManager();
   title = loadFont("Chiller-Regular-48.vlw");
   menuOption = loadFont("KristenITC-Regular-48.vlw");
   gameFont = loadFont("ArialMT-48.vlw");
   player = new Player(300, 500);
-  numEnemies = 10;
   score = 0;
   lives = 3;
   mode = 0;
-  
+  numEnemies = 20;
   keys = new boolean[1000];
   gameOver = false;
   gameObjects = new ArrayList<GameObject>();
   gameObjects.add(player);
   
-  for( int i=0; i<numEnemies; i++)
+  for( int i=0; i<numEnemies/2; i++)
   {
     gameObjects.add(new Enemy1(i*60+40, 50));
     gameObjects.add(new Enemy2(i*60+40, -15));
@@ -47,7 +41,22 @@ void draw()
             break;
     case 1: gameScreen.level1();
             break;
+    case 4: gameScreen.quitScreen();
+            break;
   }
+}
+
+void die()
+{
+  for(int i=0; i<gameObjects.size(); i++)
+  {
+    GameObject en = gameObjects.get(i);
+    if( en instanceof Enemy )
+    {
+      en.y -= 600;
+    }
+  }
+  lives--;
 }
 
 
@@ -75,15 +84,18 @@ void keyPressed()
 {
   if(mode == 0)
   {
-      if(keyCode == LEFT)
+      if(key == 10)
       {
         if(menuSelect == 0)
         {
           mode = 1;
         }
+        if(menuSelect == 1)
+        {
+          mode = 4;
+          menuSelect = 3;
+        }
       }
-      
-      
       if(keyCode == UP)
       {
         menuSelect = 0;
@@ -93,12 +105,34 @@ void keyPressed()
       {
         menuSelect = 1;
       }
-  }
-  
+  }//end if mode0
   else if(mode == 1)
   {
     keys[keyCode] = true;
-  }
+  }//end if mode1
+  else if(mode == 4)
+  {
+    if(key == 10)
+    {
+      if(menuSelect == 2)
+      {
+        exit();
+      }
+      else if(menuSelect == 3)
+      {
+        mode = 0;
+        menuSelect = 0;
+      }
+    }
+    if(keyCode == LEFT)
+    {
+      menuSelect = 2;
+    }
+    if(keyCode == RIGHT)
+    {
+      menuSelect = 3;
+    }
+  }//end if mode4
 }
 
 

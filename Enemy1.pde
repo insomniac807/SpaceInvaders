@@ -8,8 +8,8 @@ class Enemy1 extends Enemy
     this.speed = 5;
     this.size = 25;
     this.health = 2;
-    create();
     this.alive = true;
+    create();
   }
   
   void create()
@@ -34,7 +34,7 @@ class Enemy1 extends Enemy
     }
     else if( health == 0 )
     {
-      alive = false;
+      this.alive = false;
       score += 1;
       health -= 1;
     }

@@ -8,6 +8,7 @@ class Enemy2 extends Enemy
     this.speed = 5;
     this.size = 30;
     this.health = 4;
+    this.alive = true;
     
     create();
   }
@@ -22,7 +23,16 @@ class Enemy2 extends Enemy
     pushMatrix();
     update();
     shapeMode(CENTER);
-    shape(shape);
+    if( health > 0)
+    {
+      shape(shape);
+    }
+    else if( health == 0 )
+    {
+      alive = false;
+      score += 3;
+      health -= 1;
+    }
     popMatrix();
   }
   

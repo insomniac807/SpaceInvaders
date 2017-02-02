@@ -2,6 +2,7 @@ class Enemy extends GameObject
 {
   float size;
   int health;
+  boolean alive;
   
   void render()
   {
@@ -9,7 +10,7 @@ class Enemy extends GameObject
   
   void update()
   {
-    if(frameCount % 120 == 0)
+    if(frameCount % 5 == 0 && !gameOver)
     {
       y += speed;
     }
@@ -22,9 +23,12 @@ class Enemy extends GameObject
       {
           Bullet bullet = (Bullet) b;
           if(dist(bullet.x, bullet.y, this.x, this.y) < size/2)
-          {
-            health --;
-            gameObjects.remove(b);
+          {  
+            if(this.alive)
+            {
+              this.health --;
+              gameObjects.remove(b);
+            }
           }   
       }//end if
     }//end for

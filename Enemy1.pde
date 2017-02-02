@@ -6,9 +6,10 @@ class Enemy1 extends Enemy
     this.x = x;
     this.y = y;
     this.speed = 5;
-    this.size = 50;
+    this.size = 25;
     this.health = 2;
     create();
+    this.alive = true;
   }
   
   void create()
@@ -16,8 +17,8 @@ class Enemy1 extends Enemy
     shape = createShape();
     shape.beginShape();
       shape.vertex(0, 0);
-      shape.vertex(-size/2, -size/2);
-      shape.vertex(size/2, -size/2);
+      shape.vertex(-size, -size);
+      shape.vertex(size, -size);
     shape.endShape(CLOSE);
   }
   
@@ -27,7 +28,16 @@ class Enemy1 extends Enemy
     pushMatrix();
     update();
     shapeMode(CENTER);
-    shape(shape);
+    if( health > 0 )
+    {
+      shape(shape);
+    }
+    else if( health == 0 )
+    {
+      alive = false;
+      score += 1;
+      health -= 1;
+    }
     popMatrix();
   }
   

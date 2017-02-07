@@ -17,14 +17,13 @@ boolean levelCleared;
 
 void setup()
 {
-  size(800,600);
+  size(600,600);
   gameScreen = new LevelManager();
   title = loadFont("Chiller-Regular-48.vlw");
   menuOption = loadFont("KristenITC-Regular-48.vlw");
   gameFont = loadFont("ArialMT-48.vlw");
   player = new Player(300, 500);
   gameObjects = new ArrayList<GameObject>();
-  gameObjects.add(player);
   score = 0;
   lives = 3;
   mode = 0;
@@ -49,7 +48,6 @@ void draw()
     {
       print(gameObjects.get(i).toString());
     }
-    println();
 }
 
 //resets the current level and player loses a life

@@ -64,4 +64,9 @@ class Player extends GameObject
     {
     }
   }
+  
+  void resetAmmo()
+  {
+    this.ammo = 200;
+  }
 }

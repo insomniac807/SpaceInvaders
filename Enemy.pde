@@ -3,13 +3,19 @@ class Enemy extends GameObject
   float size;
   int health;
   
+  Enemy()
+  {
+    this.speed = 0.1;
+    this.size = 30;
+  }
+  
   void render()
   {
   }
   
   void update()
   {
-    if(frameCount % 10 == 0 && !gameOver)
+    if(!gameOver)
     {
       y += speed;
     }
@@ -21,7 +27,7 @@ class Enemy extends GameObject
       if( b  instanceof Bullet )
       {
           Bullet bullet = (Bullet) b;
-          if(dist(bullet.x, bullet.y, this.x, this.y) < size/2)
+          if(dist(bullet.x, bullet.y, this.x, this.y) < size)
           {  
             if(this.alive)
             {
@@ -30,8 +36,11 @@ class Enemy extends GameObject
             }
           }   
       }//end if
-    }//end for
-    
+    }//end for    
     
   }//end update
-}
+  
+  void resetHealth()
+  {}
+  
+}//end Enemy class

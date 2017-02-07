@@ -5,8 +5,6 @@ class Enemy1 extends Enemy
   {
     this.x = x;
     this.y = y;
-    this.speed = 5;
-    this.size = 25;
     this.health = 2;
     this.alive = true;
     create();
@@ -37,8 +35,14 @@ class Enemy1 extends Enemy
       this.alive = false;
       score += 1;
       health -= 1;
+      enemiesLeft--;
     }
     popMatrix();
+  }
+  
+  void resetHealth()
+  {
+    this.health = 2;
   }
   
 }

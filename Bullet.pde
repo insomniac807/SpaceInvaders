@@ -22,4 +22,9 @@ class Bullet extends GameObject
     y -= speed;
   }
   
+  String toString()
+  {
+    return "Bullet";
+  }
+  
 }

@@ -1,64 +1,82 @@
+/*
+Bug report: gameObjects.size not setting corretly after level clear, 
+instead of 1 player object, list contains player, 10 enemies and 1 bullet.
+Possible cause: level2() function in level class reloading too soon or incorectly.
+Doesnt explain the missing bullet. Possibly the last bullet to kill enemy doesnt get removed in time?
+*/
+
 LevelManager gameScreen;
 PFont title, menuOption, gameFont;
 ArrayList<GameObject> gameObjects;
 Player player;
 //mode 0=menu: 1=level1:: menuSelect 0=newgame: 1=quit::
-int score, lives, mode, menuSelect,  numEnemies;
+int score, lives, mode, menuSelect,  numEnemies, enemiesLeft;
 boolean[] keys;
 boolean gameOver;
+boolean levelCleared;
 
 void setup()
 {
-  size(600,600);
+  size(800,600);
   gameScreen = new LevelManager();
   title = loadFont("Chiller-Regular-48.vlw");
   menuOption = loadFont("KristenITC-Regular-48.vlw");
   gameFont = loadFont("ArialMT-48.vlw");
   player = new Player(300, 500);
+  gameObjects = new ArrayList<GameObject>();
+  gameObjects.add(player);
   score = 0;
   lives = 3;
   mode = 0;
   numEnemies = 20;
+  enemiesLeft = numEnemies;
   keys = new boolean[1000];
   gameOver = false;
-  gameObjects = new ArrayList<GameObject>();
-  gameObjects.add(player);
-  
-  for( int i=0; i<numEnemies/2; i++)
-  {
-    gameObjects.add(new Enemy1(i*60+40, 50));
-    gameObjects.add(new Enemy2(i*60+40, -15));
-  }
+  levelCleared = false;
   
 }//end setup
 
 
 void draw()
-{
-  switch (mode)
-  {
-    case 0: gameScreen.mainMenu();
-            break;
-    case 1: gameScreen.level1();
-            break;
-    case 4: gameScreen.quitScreen();
-            break;
-  }
+{   
+    if(enemiesLeft <= 0)
+    {
+      levelCleared();
+    }
+    gameScreen.loadLevel(mode);
+    
+    for(int i=0; i<gameObjects.size(); i++)
+    {
+      print(gameObjects.get(i).toString());
+    }
+    println();
 }
 
+//resets the current level and player loses a life
 void die()
 {
   for(int i=0; i<gameObjects.size(); i++)
   {
-    GameObject en = gameObjects.get(i);
-    if( en instanceof Enemy )
+    GameObject a = gameObjects.get(i);
+    if( a instanceof Enemy )
     {
+      Enemy en = (Enemy)a;
+      en.alive = true;
+      en.resetHealth();
       en.y -= 600;
+      player.resetAmmo();
     }
   }
   lives--;
 }
 
+void levelCleared()
+{
+      gameScreen.resetGameObjects();
+      numEnemies += 20;
+      enemiesLeft = numEnemies;
+      mode++;
+}
 
 void displayStats(Player p)
 {
@@ -106,10 +124,11 @@ void keyPressed()
         menuSelect = 1;
       }
   }//end if mode0
-  else if(mode == 1)
+  else if(mode > 0 && mode < 4 )
   {
     keys[keyCode] = true;
   }//end if mode1
+  
   else if(mode == 4)
   {
     if(key == 10)

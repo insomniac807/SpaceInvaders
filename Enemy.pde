@@ -32,7 +32,7 @@ class Enemy extends GameObject
             if(this.alive)
             {
               this.health --;
-              gameObjects.remove(b);
+              gameObjects.remove(i);
             }
           }   
       }//end if
@@ -42,5 +42,10 @@ class Enemy extends GameObject
   
   void resetHealth()
   {}
+  
+  String toString()
+  {
+    return "Enemy";
+  }
   
 }//end Enemy class

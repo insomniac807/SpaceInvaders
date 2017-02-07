@@ -1,7 +1,7 @@
-class Enemy2 extends Enemy
+class Enemy3 extends Enemy
 {
   
-  Enemy2(float x, float y)
+  Enemy3(float x, float y)
   {
     this.x = x;
     this.y = y;
@@ -20,7 +20,7 @@ class Enemy2 extends Enemy
   {
     pushMatrix();
     update();
-    shapeMode(CENTER);
+    shapeMode(CORNER);
     if( health > 0)
     {
       shape(shape);

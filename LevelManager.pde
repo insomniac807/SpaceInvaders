@@ -21,6 +21,12 @@ public class LevelManager extends Level
                 
        case 1:  playGame(levelNo);
                 break;
+       
+       case 2: playGame(levelNo);
+               break;
+               
+       case 3: playGame(levelNo);
+               break;
                 
        case 4:  quitScreen();
                 break;
@@ -35,10 +41,19 @@ public class LevelManager extends Level
     {
       level1();
     }
+    if(levelNo == 2)
+    {
+      level2();
+    }
+    if(levelNo == 3)
+    {
+      level3();
+    }
+    
     textFont(gameFont, 12);
     background(0);
     
-    for( int i=0; i < gameObjects.size(); i++)
+    for( int i=0; i < gameObjects.size()-1; i++)
     {
       gameObjects.get(i).render();
       
@@ -55,6 +70,15 @@ public class LevelManager extends Level
           }
         }
       }//end outer if
+      
+      if(gameObjects.get(i) instanceof Bullet)
+      {
+        Bullet b = (Bullet)gameObjects.get(i);
+        if(b.y <= 0)
+        {
+          gameObjects.remove(i);
+        }
+      }
     }//end for
     
     displayStats(player);

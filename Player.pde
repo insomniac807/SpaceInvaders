@@ -69,4 +69,9 @@ class Player extends GameObject
   {
     this.ammo = 200;
   }
+  
+  String toString()
+  {
+    return "Player";
+  }
 }

@@ -11,7 +11,9 @@ public class Level
     {
       GameObject g = gameObjects.get(i);
       if( g instanceof Player)//empty gameObjects except for player before loading new level elements
-      {}
+      {
+        //do nothing
+      }
       else
       {
         gameObjects.remove(g);
@@ -70,6 +72,37 @@ public class Level
       {
         gameObjects.add(new Enemy1(i*60+40, 50));
         gameObjects.add(new Enemy2(i*60+40, -15));
+      }
+    }
+    
+  }
+  
+  public void level2()
+  {
+    if(gameObjects.size() < 2)
+    {
+      int xpos = 0;
+      while(xpos < numEnemies)
+      {
+        for( int i=0; i<10; i++)
+        { 
+          gameObjects.add(new Enemy1(i*60+40, 50));
+          gameObjects.add(new Enemy2(i*60+40, -15));
+        }
+        xpos += 20;
+      }//end while
+    }
+  }
+  
+  public void level3()
+  {
+    if(gameObjects.size() < 2)
+    {
+      for( int i=0; i<numEnemies/3; i++)
+      {
+        gameObjects.add(new Enemy1(i*60+40, 50));
+        gameObjects.add(new Enemy2(i*60+40, -15));
+        gameObjects.add(new Enemy3(i*60+40, -30));
       }
     }
     

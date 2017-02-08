@@ -1,6 +1,6 @@
 # SpaceInvaders
 Space Invaders Style Game made in Processing as part of DT228s OOP module 
-[![Video](THUMBNAIL)](<iframe width="560" height="315" src="https://www.youtube.com/embed/KMusvw-UfcI" frameborder="0" allowfullscreen></iframe>)
+[![Video]http://4.bp.blogspot.com/_Odu7eqW6gAY/TFfUsRpZvYI/AAAAAAAAh5A/H2XXzGKA_3c/s1600/Space+Invader+Couch+by+Igor+Chak+01.jpg](https://www.youtube.com/watch?v=KMusvw-UfcI&t=18s)
 
 Concept
 

@@ -22,6 +22,8 @@ class Enemy2 extends Enemy
     else if( health == 0 )
     {
       alive = false;
+      en2die.play();
+      en2die.rewind();
       score += 3;
       health -= 1;
       enemiesLeft--;

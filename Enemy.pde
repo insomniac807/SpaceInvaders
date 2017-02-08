@@ -5,7 +5,7 @@ class Enemy extends GameObject
   
   Enemy()
   {
-    this.speed = 0.1;
+    this.speed = 0.2;
     this.size = 60;
   }
   

@@ -55,9 +55,9 @@ public class Level
    
   public void level1()
   {
-    player.ammo = 200;
     if(gameObjects.size() < 2)
     {
+      player.ammo = 200;
       gameObjects.add(player);
       for( int i=0; i<numEnemies/2; i++)
       {
@@ -70,9 +70,9 @@ public class Level
   
   public void level2()
   {
-    player.ammo = 300;
     if(gameObjects.size() < 2)
     {
+        player.ammo = 300;
         gameObjects.add(player);
         int ypos = 50;
         for( int i=0; i<10; i++)
@@ -97,9 +97,9 @@ public class Level
   
   public void level3()
   {
-    player.ammo = 400;
     if(gameObjects.size() < 2)
     {
+      player.ammo = 400;
       gameObjects.add(player);
         int ypos = 50;
         for( int i=0; i<10; i++)
@@ -116,15 +116,15 @@ public class Level
         }
         for(int i=0; i<10; i++)
         {
-          gameObjects.add(new Enemy3(i*60+40, ypos-190));
+          gameObjects.add(new Enemy3(i*60+20, ypos-240));
         }
         for(int i=0; i<10; i++)
         {
-          gameObjects.add(new Enemy1(i*60+40, ypos-190));
+          gameObjects.add(new Enemy1(i*60+40, ypos-250));
         }
         for(int i=0; i<10; i++)
         {
-          gameObjects.add(new Enemy2(i*60+40, ypos-190));
+          gameObjects.add(new Enemy2(i*60+40, ypos-310));
         }
     }
     

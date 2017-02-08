@@ -10,16 +10,13 @@ class Player extends GameObject
     this.ammo = 200;
     this.sprite = loadImage("player.png");
     sprite.resize(60, 40);
-    speed = 2;
+    speed = 5;
   }
   
   void fire()
   {
-    if(/*frameCount % 5 == 0*/true)
-    {
       gameObjects.add(new Bullet(this.x+30, this.y));
       ammo--;
-    }
   }
   
   void render()
@@ -34,26 +31,45 @@ class Player extends GameObject
   {
     if(checkKey(LEFT))
     {
+      rightUp = false;
+      speed = 5;
       this.x -= speed;
+    }
+    
+    if(leftUp)
+    {
+      if(speed >= 0)
+      {
+        this.x -= speed;
+        speed -= 0.2;
+      }
+      if(speed <= 0)
+      {
+        leftUp = false;
+      }
     }
     
     if(checkKey(RIGHT))
     {
+      leftUp = false;
+      speed = 5;
       this.x += speed;
     }
     
-    if(checkKey(UP))
+    if(rightUp)
     {
-      if(ammo > 0)
+      if(speed >= 0)
       {
-        fire();
+        this.x += speed;
+        speed -= 0.2;
+      }
+      if(speed <= 0)
+      {
+        rightUp = false;
       }
     }
-    
-    if(checkKey(DOWN))
-    {
-    }
   }
+  
   
   void resetAmmo()
   {

@@ -1,16 +1,32 @@
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.effects.*;
+import ddf.minim.signals.*;
+import ddf.minim.spi.*;
+import ddf.minim.ugens.*;
+
+Minim minim;
+AudioPlayer soundtrack, gunshot, enDie, en2die, en3die;
 LevelManager gameScreen;
 PFont title, menuOption, gameFont;
 PImage background;
 ArrayList<GameObject> gameObjects;
 Player player;
-//mode 0=menu: 1=level1:: menuSelect 0=newgame: 1=quit::
 int score, lives, mode, menuSelect,  numEnemies, enemiesLeft;
 boolean[] keys;
 boolean gameOver;
 boolean levelCleared;
+boolean leftUp, rightUp;
 
 void setup()
 {
+  minim = new Minim(this);
+  soundtrack = minim.loadFile("level1.mp3");
+  gunshot = minim.loadFile("gunshot.wav");
+  enDie = minim.loadFile("boom.mp3");
+  en2die = minim.loadFile("boom2.mp3");
+  en3die = minim.loadFile("boom3.mp3");
+  
   size(600,600);
   background = loadImage("background.png");
   background.resize(600,600);
@@ -28,6 +44,8 @@ void setup()
   keys = new boolean[1000];
   gameOver = false;
   levelCleared = false;
+  leftUp = rightUp = false;
+  soundtrack.loop();
   
 }//end setup
 
@@ -42,9 +60,11 @@ void draw()
     
 }
 
+
 //resets the current level and player loses a life
 void die()
 {
+  int enCount = 0;
   for(int i=0; i<gameObjects.size(); i++)
   {
     GameObject a = gameObjects.get(i);
@@ -55,9 +75,11 @@ void die()
       en.resetHealth();
       en.y -= 600;
       player.resetAmmo();
+      enCount++;
     }
   }
   lives--;
+  enemiesLeft = enCount;
 }
 
 void levelCleared()
@@ -114,9 +136,17 @@ void keyPressed()
         menuSelect = 1;
       }
   }//end if mode0
+  
   else if(mode > 0 && mode < 4 )
   {
     keys[keyCode] = true;
+    
+    if(keyCode == UP)
+    {
+      gunshot.play();
+      gunshot.rewind();
+      player.fire();
+    }
   }//end if mode1
   
   else if(mode == 4)
@@ -148,4 +178,12 @@ void keyPressed()
 void keyReleased()
 {
   keys[keyCode] = false;
+  if(keyCode == LEFT)
+  {
+    leftUp = true;
+  }
+  if(keyCode == RIGHT)
+  {
+    rightUp = true;
+  }
 }

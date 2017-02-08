@@ -23,6 +23,8 @@ class Enemy1 extends Enemy
     else if( health == 0 )
     {
       this.alive = false;
+      enDie.play();
+      enDie.rewind();
       score += 1;
       health -= 1;
       enemiesLeft--;

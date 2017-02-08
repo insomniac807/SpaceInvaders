@@ -49,7 +49,6 @@ public class LevelManager extends Level
     {
       level3();
     }
-    
     textFont(gameFont, 12);
     background(background);
     

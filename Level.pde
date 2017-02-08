@@ -5,11 +5,6 @@ public class Level
   {}
   
   
-  public void resetGameObjects()
-  {
-    gameObjects.clear();
-  }
-  
   public void mainMenu()
   {
     background(0);
@@ -19,14 +14,7 @@ public class Level
     textFont(menuOption, 32);
     if(menuSelect == 0)
     {
-      if(frameCount % 120 < 100)
-      {
-        fill(0, 255, 0);
-      }
-      else
-      {
-        fill(255);
-      }
+      fill(0, 255, 0);
     }
     else
     {
@@ -35,22 +23,41 @@ public class Level
     text("New Game", width/3, height/2);
     if(menuSelect == 1)
     {
-      if(frameCount % 120 < 100)
-      {
-        fill(0, 255, 0);
-      }
-      else
-      {
-        fill(255);
-      }
+       fill(0, 255, 0); 
     }
     else
     {
       fill(255);
     }
-    text("Quit", width/2.5, height*0.6);
+    text("Difficulty", width/3, height*0.6);
+    if(menuSelect == 2)
+    {
+      fill(0, 255, 0);
+    }
+    else
+    {
+      fill(255);
+    }
+    text("Controls", width/2.9, height*0.7);
+    if(menuSelect == 3)
+    {
+      fill(0, 255, 0);
+    }
+    else
+    {
+      fill(255);
+    }
+    text("Quit", width/2.5, height*0.8);
     
   }//end mainmenu
+   
+  
+  public void gameOver()
+  {
+    background(0);
+    textFont(title, 86);
+    text("You Died!!!", width/3, height/2);
+  }
    
    
   public void level1()
@@ -99,7 +106,7 @@ public class Level
   {
     if(gameObjects.size() < 2)
     {
-      player.ammo = 400;
+      player.ammo += ammoDiffic;
       gameObjects.add(player);
         int ypos = 50;
         for( int i=0; i<10; i++)
@@ -131,6 +138,30 @@ public class Level
   }
   
   
+  public void difficulty()
+  {
+    background(0);
+    textFont(menuOption, 32);
+    text("Easy", width/2.5, height/4);
+    text("Normal", width/3, height/5);
+    text("Hard", width/3, height/6);
+    text("Impossible", width/3, height/7);
+  }
+  
+  public void controls()
+  {
+    background(0);
+    textFont(title, 86);
+    text("Controls", width/4, height*0.1);
+  }
+  
+  public void winScreen()
+  {
+    background(0);
+    textFont(title, 86);
+    text("WINNER", width/4, height/2);
+  }
+  
   public void quitScreen()
   {
     background(0);
@@ -138,32 +169,18 @@ public class Level
     fill(255);
     text("Quit, Are You Sure?", width/9, height/4);
     textFont(menuOption, 32);
-    if(menuSelect == 2)
+    if(menuSelect == 10)
     {
-      if(frameCount % 120 < 100)
-      {
         fill(0, 255, 0);
-      }
-      else
-      {
-        fill(255);
-      }
     }
     else
     {
       fill(255);
     }
     text("YES", width/6, height/2);
-    if(menuSelect == 3)
+    if(menuSelect == 11)
     {
-      if(frameCount % 120 < 100)
-      {
         fill(0, 255, 0);
-      }
-      else
-      {
-        fill(255);
-      }
     }
     else
     {

@@ -25,6 +25,7 @@ class Enemy1 extends Enemy
       this.alive = false;
       enDie.play();
       enDie.rewind();
+      gameObjects.add(new Explosion(x, y, size, size));
       score += 1;
       health -= 1;
       enemiesLeft--;

@@ -1,10 +1,10 @@
 public class LevelManager extends Level
 {
   int mode, levelNo;
-  boolean levelSetup;
+  //boolean levelSetup;
   LevelManager()
   {
-    levelSetup = false;
+    //levelSetup = false;
     levelNo = 1;
     
   }
@@ -28,8 +28,19 @@ public class LevelManager extends Level
        case 3: playGame(levelNo);
                break;
                 
-       case 4:  quitScreen();
-                break;
+       case 4: winScreen();
+               break;
+                
+       case 5: difficulty();
+               break;
+            
+       case 6: controls();
+               break;
+               
+       case 7: quitScreen();
+               break;
+       
+       case 8: gameOver();
      }
   }//end loadLevel()
   

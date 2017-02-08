@@ -27,6 +27,7 @@ class Enemy3 extends Enemy
       en3die.rewind();
       score += 3;
       health -= 1;
+      gameObjects.add(new Explosion(x, y+20, size, size));
       enemiesLeft--;
     }
   }

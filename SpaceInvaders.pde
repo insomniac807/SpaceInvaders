@@ -12,11 +12,12 @@ PFont title, menuOption, gameFont;
 PImage background;
 ArrayList<GameObject> gameObjects;
 Player player;
-int score, lives, mode, menuSelect,  numEnemies, enemiesLeft;
+int score, lives, mode, menuSelect,  numEnemies, enemiesLeft, ammoDiffic;
+float difficulty;
 boolean[] keys;
 boolean gameOver;
 boolean levelCleared;
-boolean leftUp, rightUp;
+boolean leftUp, rightUp, dead;
 
 void setup()
 {
@@ -27,6 +28,9 @@ void setup()
   en2die = minim.loadFile("boom2.mp3");
   en3die = minim.loadFile("boom3.mp3");
   
+  difficulty = 0.2;
+  ammoDiffic = 150;
+  dead = false;
   size(600,600);
   background = loadImage("background.png");
   background.resize(600,600);
@@ -57,6 +61,19 @@ void draw()
       levelCleared();
     }
     gameScreen.loadLevel(mode);
+    if(dead)
+    {
+      if(frameCount % 180 < 160)
+      {
+        textFont(title, 86);
+        fill(255, 0, 0);
+        text("DIE", width/3, height/2);
+      }
+      else
+      {
+        dead = false;
+      }
+    }
     
 }
 
@@ -64,27 +81,35 @@ void draw()
 //resets the current level and player loses a life
 void die()
 {
-  int enCount = 0;
-  for(int i=0; i<gameObjects.size(); i++)
+  dead = true;
+  if(lives > 0)
   {
-    GameObject a = gameObjects.get(i);
-    if( a instanceof Enemy )
-    {
-      Enemy en = (Enemy)a;
-      en.alive = true;
-      en.resetHealth();
-      en.y -= 600;
-      player.resetAmmo();
-      enCount++;
-    }
+      lives--;
+      int enCount = 0;
+      for(int i=0; i<gameObjects.size(); i++)
+      {
+        GameObject a = gameObjects.get(i);
+        if( a instanceof Enemy )
+        {
+          Enemy en = (Enemy)a;
+          en.alive = true;
+          en.resetHealth();
+          en.y -= 600;
+          player.resetAmmo();
+          enCount++;
+        }
+      }
+      enemiesLeft = enCount;
   }
-  lives--;
-  enemiesLeft = enCount;
+  else
+  {
+    mode = 8;
+  }
 }
 
 void levelCleared()
 {
-      gameScreen.resetGameObjects();
+      resetGameObjects();
       numEnemies += 20;
       enemiesLeft = numEnemies;
       mode++;
@@ -109,35 +134,135 @@ boolean checkKey(int k)
   return keys[k];
 }
 
+void resetGameObjects()
+{
+  gameObjects.clear();
+}
 
 void keyPressed()
 {
-  if(mode == 0)
+  if(mode == 0 || mode == 5 || mode == 6 || mode == 7)
   {
       if(key == 10)
       {
-        if(menuSelect == 0)
+        
+        switch(menuSelect)
         {
-          mode = 1;
-        }
-        if(menuSelect == 1)
-        {
-          mode = 4;
-          menuSelect = 3;
-        }
-      }
-      if(keyCode == UP)
-      {
-        menuSelect = 0;
+          case 0://new game
+                  resetGameObjects();
+                  numEnemies = 20;
+                  score = 0;
+                  mode = 1;
+                  break;
+          case 1://difficluty
+                  mode = 5;
+                  break;
+          case 2://controls
+                  mode = 6;
+                  break;
+          case 3://quit
+                  menuSelect = 11;
+                  mode = 7;
+                  break;
+          case 4://easy
+                 difficulty = 0.1;
+                 player.ammo = 200;
+                 break;
+          case 5://med
+                  difficulty = 0.2;
+                  player.ammo = 150;
+                  break;
+          case 6://hard
+                  difficulty = 0.3;
+                  player.ammo = 100;
+                  break;
+          case 7://insane
+                  difficulty = 0.4;
+                  player.ammo = 400;
+                  break;
+          case 8://ok difficulty
+                  mode = 0;
+                  break;
+          case 9://control return
+                  mode = 0;
+                  break;
+          case 10://yes quit
+                  exit();
+          case 11://no quit
+                   mode = 0;
+                   break;
+          default: break;
+        }//end switch
+        
       }
       
-      if(keyCode == DOWN)
+      if(keyCode == UP && mode != 7)
       {
-        menuSelect = 1;
-      }
-  }//end if mode0
-  
-  else if(mode > 0 && mode < 4 )
+        menuSelect--;
+        switch(mode)
+        {
+          case 0:
+                  if(menuSelect < 0)
+                  {
+                    menuSelect = 3;
+                  }
+                  break;
+                
+          case 5:
+                  if(menuSelect < 4)
+                  {
+                     menuSelect = 8;
+                  }
+                  break;
+                  
+          case 6:
+                  menuSelect = 8;
+                  
+          default:
+                  break;
+                    
+        }//end switch
+      }//end key == up
+      
+      if(keyCode == DOWN && mode != 7)
+      {
+        menuSelect++;
+        switch(mode)
+        {
+          case 0:
+                  if(menuSelect > 3)
+                  {
+                    menuSelect = 0;
+                  }
+                  break;
+                
+          case 5:
+                  if(menuSelect < 8)
+                  {
+                     menuSelect = 4;
+                  }
+                  break;
+                  
+          case 6:
+                  menuSelect = 9;      
+                  
+          default:
+                   break;
+        }//end switch 
+      }//end if key == down
+     
+    if(keyCode == LEFT)
+    {
+      menuSelect = 10;
+    }
+    if(keyCode == RIGHT)
+    {
+      menuSelect = 11;
+    }
+    
+  }//end if mode 0, 5 or 6
+
+  else if(mode > 0 && mode < 4 )//in game mode
   {
     keys[keyCode] = true;
     
@@ -147,31 +272,8 @@ void keyPressed()
       gunshot.rewind();
       player.fire();
     }
-  }//end if mode1
+  }//end if game mode
   
-  else if(mode == 4)
-  {
-    if(key == 10)
-    {
-      if(menuSelect == 2)
-      {
-        exit();
-      }
-      else if(menuSelect == 3)
-      {
-        mode = 0;
-        menuSelect = 0;
-      }
-    }
-    if(keyCode == LEFT)
-    {
-      menuSelect = 2;
-    }
-    if(keyCode == RIGHT)
-    {
-      menuSelect = 3;
-    }
-  }//end if mode4
 }
 
 

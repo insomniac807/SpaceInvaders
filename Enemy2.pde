@@ -23,6 +23,7 @@ class Enemy2 extends Enemy
     {
       alive = false;
       en2die.play();
+      gameObjects.add(new Explosion(x, y, size, size));
       en2die.rewind();
       score += 3;
       health -= 1;

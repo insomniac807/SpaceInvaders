@@ -5,8 +5,13 @@ class Enemy extends GameObject
   
   Enemy()
   {
-    this.speed = 0.2;
+    this.speed = difficulty;
     this.size = 60;
+  }
+ 
+  boolean isAlive()
+  {
+    return this.alive;
   }
   
   void render()
@@ -18,6 +23,10 @@ class Enemy extends GameObject
     if(!gameOver)
     {
       y += speed;
+      if(y > player.y && this.isAlive())
+      {
+        die();
+      }
     }
     
     for( int i=0; i<gameObjects.size(); i++)
@@ -35,7 +44,8 @@ class Enemy extends GameObject
             }
           }   
       }//end if
-    }//end for    
+    }//end for 
+    
     
   }//end update
   

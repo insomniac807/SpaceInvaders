@@ -29,6 +29,27 @@ class Player extends GameObject
   
   void update()
   {
+    for(int i=0; i<gameObjects.size(); i++)
+    {
+      GameObject e = gameObjects.get(i);
+      if( e instanceof Enemy )
+      {
+        Enemy a = (Enemy)e;
+        if(dist(this.x, this.y, a.x, a.y) < 30 && a.isAlive())
+        {
+          gameObjects.add(new Explosion(this.x, this.y, 60, 60));
+          die();
+        }
+      }
+    }
+    if(this.x < -60)
+    {
+      this.x = 660;
+    }
+    if(this.x > 660)
+    {
+      this.x = -60;
+    }
     if(checkKey(LEFT))
     {
       rightUp = false;

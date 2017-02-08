@@ -1,12 +1,6 @@
-/*
-Bug report: gameObjects.size not setting corretly after level clear, 
-instead of 1 player object, list contains player, 10 enemies and 1 bullet.
-Possible cause: level2() function in level class reloading too soon or incorectly.
-Doesnt explain the missing bullet. Possibly the last bullet to kill enemy doesnt get removed in time?
-*/
-
 LevelManager gameScreen;
 PFont title, menuOption, gameFont;
+PImage background;
 ArrayList<GameObject> gameObjects;
 Player player;
 //mode 0=menu: 1=level1:: menuSelect 0=newgame: 1=quit::
@@ -18,6 +12,8 @@ boolean levelCleared;
 void setup()
 {
   size(600,600);
+  background = loadImage("background.png");
+  background.resize(600,600);
   gameScreen = new LevelManager();
   title = loadFont("Chiller-Regular-48.vlw");
   menuOption = loadFont("KristenITC-Regular-48.vlw");
@@ -44,10 +40,6 @@ void draw()
     }
     gameScreen.loadLevel(mode);
     
-    for(int i=0; i<gameObjects.size(); i++)
-    {
-      print(gameObjects.get(i).toString());
-    }
 }
 
 //resets the current level and player loses a life

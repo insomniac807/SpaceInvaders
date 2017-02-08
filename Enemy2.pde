@@ -7,23 +7,17 @@ class Enemy2 extends Enemy
     this.y = y;
     this.health = 4;
     this.alive = true;
-    
-    create();
-  }
-  
-  void create()
-  {
-    shape = createShape(RECT, 0, 0, size, size);
+    this.sprite = loadImage("alien2.png");
+    sprite.resize(size, size);
   }
   
   void render()
   {
-    pushMatrix();
     update();
-    shapeMode(CENTER);
+    imageMode(CENTER);
     if( health > 0)
     {
-      shape(shape);
+      image(sprite, x, y);
     }
     else if( health == 0 )
     {
@@ -32,7 +26,6 @@ class Enemy2 extends Enemy
       health -= 1;
       enemiesLeft--;
     }
-    popMatrix();
   }
   
   void resetHealth()

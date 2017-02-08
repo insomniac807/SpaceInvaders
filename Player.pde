@@ -8,24 +8,16 @@ class Player extends GameObject
     this.y = y;
     
     this.ammo = 200;
+    this.sprite = loadImage("player.png");
+    sprite.resize(60, 40);
     speed = 2;
-  }
-  
-  void create()
-  {
-    shape = createShape();
-    shape.beginShape();
-      shape.vertex(x, y);
-      shape.vertex(x-20, y+30);
-      shape.vertex(x+20, y+30);
-    shape.endShape(CLOSE);
   }
   
   void fire()
   {
-    if(frameCount % 5 == 0)
+    if(/*frameCount % 5 == 0*/true)
     {
-      gameObjects.add(new Bullet(this.x, this.y));
+      gameObjects.add(new Bullet(this.x+30, this.y));
       ammo--;
     }
   }
@@ -33,9 +25,8 @@ class Player extends GameObject
   void render()
   {
     update();
-    create();
-    shapeMode(CORNER);
-    shape(shape);
+    imageMode(CORNER);
+    image(sprite, x, y);
   }
   
   
@@ -48,8 +39,7 @@ class Player extends GameObject
     
     if(checkKey(RIGHT))
     {
-      this.x 
-      += speed;
+      this.x += speed;
     }
     
     if(checkKey(UP))

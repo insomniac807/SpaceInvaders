@@ -1,12 +1,12 @@
 class Enemy extends GameObject
 {
-  float size;
-  int health;
+  
+  int health, size;
   
   Enemy()
   {
     this.speed = 0.1;
-    this.size = 30;
+    this.size = 60;
   }
   
   void render()
@@ -19,7 +19,6 @@ class Enemy extends GameObject
     {
       y += speed;
     }
-    translate(x, y);
     
     for( int i=0; i<gameObjects.size(); i++)
     {
@@ -27,7 +26,7 @@ class Enemy extends GameObject
       if( b  instanceof Bullet )
       {
           Bullet bullet = (Bullet) b;
-          if(dist(bullet.x, bullet.y, this.x, this.y) < size)
+          if(dist(bullet.x, bullet.y, this.x, this.y) < size/2)
           {  
             if(this.alive)
             {

@@ -51,7 +51,7 @@ public class LevelManager extends Level
     }
     
     textFont(gameFont, 12);
-    background(0);
+    background(background);
     
     for( int i=0; i < gameObjects.size()-1; i++)
     {

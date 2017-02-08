@@ -17,7 +17,7 @@ float difficulty;
 boolean[] keys;
 boolean gameOver;
 boolean levelCleared;
-boolean leftUp, rightUp, dead;
+boolean leftUp, rightUp, dead, levelUp;
 
 void setup()
 {
@@ -27,6 +27,7 @@ void setup()
   enDie = minim.loadFile("boom.mp3");
   en2die = minim.loadFile("boom2.mp3");
   en3die = minim.loadFile("boom3.mp3");
+  levelUp =false;
   
   difficulty = 0.2;
   ammoDiffic = 150;
@@ -63,7 +64,7 @@ void draw()
     gameScreen.loadLevel(mode);
     if(dead)
     {
-      if(frameCount % 180 < 160)
+      if(frameCount % 180 < 160 && lives > 0)
       {
         textFont(title, 86);
         fill(255, 0, 0);
@@ -74,6 +75,23 @@ void draw()
         dead = false;
       }
     }
+    if(levelUp && mode < 4 && mode > 0)
+    {
+      if(frameCount % 300 < 240)
+      {
+        textFont(title, 86);
+        fill(0, 255, 0);
+        text("Level "+mode, width/3, height/2);
+      }
+      else
+      {
+        levelUp = false;
+      }
+      
+    }
+    
+    println(mode);
+    //println(enemiesLeft);
     
 }
 
@@ -104,15 +122,17 @@ void die()
   else
   {
     mode = 8;
+    menuSelect = 12;
   }
 }
 
 void levelCleared()
 {
-      resetGameObjects();
-      numEnemies += 20;
-      enemiesLeft = numEnemies;
-      mode++;
+      if(mode <= 3)
+      {
+        levelUp = true;
+        mode++;
+      }
 }
 
 void displayStats(Player p)
@@ -141,7 +161,7 @@ void resetGameObjects()
 
 void keyPressed()
 {
-  if(mode == 0 || mode == 5 || mode == 6 || mode == 7)
+  if(mode == 0 || mode == 4 || mode == 5 || mode == 6 || mode == 7 || mode == 8)
   {
       if(key == 10)
       {
@@ -191,6 +211,12 @@ void keyPressed()
           case 11://no quit
                    mode = 0;
                    break;
+                   
+          case 12://game over, continue
+                    mode = 0;
+                    menuSelect = 0;
+                    break;
+                    
           default: break;
         }//end switch
         

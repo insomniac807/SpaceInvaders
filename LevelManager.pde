@@ -1,11 +1,10 @@
 public class LevelManager extends Level
 {
-  int mode, levelNo;
+  int mode, level;
   //boolean levelSetup;
   LevelManager()
   {
     //levelSetup = false;
-    levelNo = 1;
     
   }
   
@@ -41,6 +40,7 @@ public class LevelManager extends Level
                break;
        
        case 8: gameOver();
+               break;
      }
   }//end loadLevel()
   
@@ -48,6 +48,7 @@ public class LevelManager extends Level
   
   public void playGame(int levelNo)
   {
+    this.level = levelNo;
     if(levelNo == 1)
     {
       level1();
@@ -94,6 +95,11 @@ public class LevelManager extends Level
     displayStats(player);
     
   }//end playGame()
+  
+  public int getLevel()
+  {
+    return this.level;
+  }
   
   
 

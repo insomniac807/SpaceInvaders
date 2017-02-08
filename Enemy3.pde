@@ -15,7 +15,7 @@ class Enemy3 extends Enemy
   void render()
   {
     update();
-    imageMode(CORNER);
+    imageMode(CENTER);
     if( health > 0)
     {
       image(sprite, x, y);

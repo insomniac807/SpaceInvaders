@@ -56,7 +56,11 @@ public class Level
   {
     background(0);
     textFont(title, 86);
+    fill(255);
     text("You Died!!!", width/3, height/2);
+    textFont(menuOption, 32);
+    fill(0, 255, 0);
+    text("Main Menu", width/3, height*0.7);
   }
    
    
@@ -64,6 +68,9 @@ public class Level
   {
     if(gameObjects.size() < 2)
     {
+      numEnemies = 20;
+      enemiesLeft = numEnemies;
+      resetGameObjects();
       player.ammo = 200;
       gameObjects.add(player);
       for( int i=0; i<numEnemies/2; i++)
@@ -79,6 +86,9 @@ public class Level
   {
     if(gameObjects.size() < 2)
     {
+        numEnemies = 40;
+        enemiesLeft = numEnemies;
+        resetGameObjects();
         player.ammo = 300;
         gameObjects.add(player);
         int ypos = 50;
@@ -106,6 +116,9 @@ public class Level
   {
     if(gameObjects.size() < 2)
     {
+      numEnemies = 60;
+      enemiesLeft = numEnemies;
+      resetGameObjects();
       player.ammo += ammoDiffic;
       gameObjects.add(player);
         int ypos = 50;
@@ -142,10 +155,10 @@ public class Level
   {
     background(0);
     textFont(menuOption, 32);
-    text("Easy", width/2.5, height/4);
-    text("Normal", width/3, height/5);
-    text("Hard", width/3, height/6);
-    text("Impossible", width/3, height/7);
+    text("Easy", width/2.5, height*0.2);
+    text("Normal", width/3, height*0.4);
+    text("Hard", width/3, height*0.6);
+    text("Impossible", width/3, height*0.8);
   }
   
   public void controls()
@@ -157,9 +170,14 @@ public class Level
   
   public void winScreen()
   {
+    menuSelect = 12;
     background(0);
+    fill(255);
     textFont(title, 86);
     text("WINNER", width/4, height/2);
+    textFont(menuOption, 32);
+    fill(0, 255, 0);
+    text("Main Menu", width/3, height*0.7);
   }
   
   public void quitScreen()

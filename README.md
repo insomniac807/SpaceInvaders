@@ -1,6 +1,6 @@
 # SpaceInvaders
 Space Invaders Style Game made in Processing as part of DT228s OOP module 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/KMusvw-UfcI" frameborder="0" allowfullscreen></iframe>
+[![Video](THUMBNAIL)]<iframe width="560" height="315" src="https://www.youtube.com/embed/KMusvw-UfcI" frameborder="0" allowfullscreen></iframe>
 
 Concept
 

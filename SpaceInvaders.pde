@@ -12,7 +12,7 @@ PFont title, menuOption, gameFont;
 PImage background;
 ArrayList<GameObject> gameObjects;
 Player player;
-int score, lives, mode, menuSelect,  numEnemies, enemiesLeft, ammoDiffic;
+int score, lives, mode, menuSelect,  numEnemies, enemiesLeft, ammoDiffic, selected;
 float difficulty;
 boolean[] keys;
 boolean gameOver;
@@ -27,7 +27,7 @@ void setup()
   enDie = minim.loadFile("boom.mp3");
   en2die = minim.loadFile("boom2.mp3");
   en3die = minim.loadFile("boom3.mp3");
-  levelUp =false;
+  levelUp = true;
   
   difficulty = 0.2;
   ammoDiffic = 150;
@@ -91,7 +91,7 @@ void draw()
     }
     
     println(mode);
-    //println(enemiesLeft);
+    println(menuSelect);
     
 }
 
@@ -131,6 +131,8 @@ void levelCleared()
       if(mode <= 3)
       {
         levelUp = true;
+        enemiesLeft = 1;
+        resetGameObjects();
         mode++;
       }
 }
@@ -179,6 +181,7 @@ void keyPressed()
                   break;
           case 2://controls
                   mode = 6;
+                  menuSelect = 9;
                   break;
           case 3://quit
                   menuSelect = 11;
@@ -187,18 +190,22 @@ void keyPressed()
           case 4://easy
                  difficulty = 0.1;
                  player.ammo = 200;
+                 selected  = 4;
                  break;
           case 5://med
                   difficulty = 0.2;
                   player.ammo = 150;
+                  selected = 5;
                   break;
           case 6://hard
                   difficulty = 0.3;
                   player.ammo = 100;
+                  selected = 6;
                   break;
           case 7://insane
                   difficulty = 0.4;
                   player.ammo = 400;
+                  selected = 7;
                   break;
           case 8://ok difficulty
                   mode = 0;
@@ -221,6 +228,7 @@ void keyPressed()
         }//end switch
         
       }
+
       
       if(keyCode == UP && mode != 7)
       {
@@ -263,7 +271,7 @@ void keyPressed()
                   break;
                 
           case 5:
-                  if(menuSelect < 8)
+                  if(menuSelect > 8)
                   {
                      menuSelect = 4;
                   }

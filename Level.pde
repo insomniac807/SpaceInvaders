@@ -70,7 +70,6 @@ public class Level
     {
       numEnemies = 20;
       enemiesLeft = numEnemies;
-      resetGameObjects();
       player.ammo = 200;
       gameObjects.add(player);
       for( int i=0; i<numEnemies/2; i++)
@@ -88,7 +87,6 @@ public class Level
     {
         numEnemies = 40;
         enemiesLeft = numEnemies;
-        resetGameObjects();
         player.ammo = 300;
         gameObjects.add(player);
         int ypos = 50;
@@ -118,7 +116,6 @@ public class Level
     {
       numEnemies = 60;
       enemiesLeft = numEnemies;
-      resetGameObjects();
       player.ammo += ammoDiffic;
       gameObjects.add(player);
         int ypos = 50;
@@ -155,17 +152,98 @@ public class Level
   {
     background(0);
     textFont(menuOption, 32);
+    if(selected == 4)
+    {
+      fill(255, 0, 0);
+    }
+    else if(menuSelect == 4)
+    {
+       fill(0, 255, 0);
+    }
+    else
+    {
+      fill(255);
+    }
     text("Easy", width/2.5, height*0.2);
-    text("Normal", width/3, height*0.4);
-    text("Hard", width/3, height*0.6);
-    text("Impossible", width/3, height*0.8);
+    
+    if(selected == 5)
+    {
+      fill(255, 0, 0);
+    }
+    else if(menuSelect == 5)
+    {
+      fill(0, 255, 0);
+    }
+    else
+    {
+      fill(255);
+    }
+    text("Normal", width/3, height*0.3);
+    
+    if(selected == 6)
+    {
+      fill(255, 0, 0);
+    }
+    else if(menuSelect == 6)
+    {
+      fill(0, 255, 0);
+    }
+    else
+    {
+      fill(255);
+    }
+    text("Hard", width/3, height*0.4);
+    
+    if(selected == 7)
+    {
+      fill(255, 0, 0);
+    }
+    else if(menuSelect == 7)
+    {
+      fill(0, 255, 0);
+    }
+    else
+    {
+      fill(255);
+    }
+    text("Impossible", width/3, height*0.5);
+    
+    if(menuSelect == 8)
+    {
+      fill(0, 255, 0);
+    }
+    else
+    {
+      fill(255);
+    }
+    text("Continue", width/3, height*0.8);
+    
   }
   
   public void controls()
   {
     background(0);
     textFont(title, 86);
-    text("Controls", width/4, height*0.1);
+    fill(255);
+    text("Controls", width*0.3, height*0.2);
+    textFont(menuOption, 25);
+    fill(0, 255, 0);
+    text("Control Your Ship With Arrow Keys", width/7, height*0.3);
+    fill(255, 0, 0);
+    text("1>", width*0.09, height*0.3); 
+    fill(0, 255, 0);
+    text("Left and Right to Move", width/4, height*0.4);
+    fill(255, 0, 0);
+    text("2>", width/5.5, height*0.4); 
+    fill(0, 255, 0);
+    text("Up Arrow to Shoot", width/3.5, height*0.5);
+    fill(255, 0, 0);
+    text("3>", width/4.5, height*0.5);
+    fill(0, 255, 0);
+    text("{ Double tab either left or right arrow for", width*0.09, height*0.6);
+    text("a slight speed boost }", width*0.30, height*0.7);
+    fill(255);
+    text("Main Menu", width*0.35, height*0.9);
   }
   
   public void winScreen()

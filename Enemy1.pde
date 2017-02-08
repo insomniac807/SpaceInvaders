@@ -15,19 +15,19 @@ class Enemy1 extends Enemy
   void render()
   {
     update();
-    if( health > 0 )
+    if( health > 0 )//if alive display
     {
       imageMode(CENTER);
       image(sprite, x, y);
     }
-    else if( health == 0 )
+    else if( health == 0 )//else do not display (keep in arraylist to show empty position)
     {
       this.alive = false;
       enDie.play();
       enDie.rewind();
-      gameObjects.add(new Explosion(x, y, size, size));
-      score += 1;
-      health -= 1;
+      gameObjects.add(new Explosion(x, y, size*2, size*2));//explosion animation
+      score += 1;//low score for killing easy enemy
+      health -= 1;//switch this code off
       enemiesLeft--;
     }
   }

@@ -1,10 +1,4 @@
 import ddf.minim.*;
-import ddf.minim.analysis.*;
-import ddf.minim.effects.*;
-import ddf.minim.signals.*;
-import ddf.minim.spi.*;
-import ddf.minim.ugens.*;
-
 Minim minim;
 AudioPlayer soundtrack, gunshot, enDie, en2die, en3die;
 LevelManager gameScreen;
@@ -15,9 +9,7 @@ Player player;
 int score, lives, mode, menuSelect,  numEnemies, enemiesLeft, ammoDiffic, selected;
 float difficulty;
 boolean[] keys;
-boolean gameOver;
-boolean levelCleared;
-boolean leftUp, rightUp, dead, levelUp;
+boolean leftUp, rightUp, dead, levelUp, levelCleared, gameOver;
 
 void setup()
 {
@@ -27,30 +19,28 @@ void setup()
   enDie = minim.loadFile("boom.mp3");
   en2die = minim.loadFile("boom2.mp3");
   en3die = minim.loadFile("boom3.mp3");
-  levelUp = true;
   
-  difficulty = 0.2;
-  ammoDiffic = 150;
-  dead = false;
   size(600,600);
   background = loadImage("background.png");
   background.resize(600,600);
-  gameScreen = new LevelManager();
+  gameScreen = new LevelManager();//runs code for different screens based on mode value
   title = loadFont("Chiller-Regular-48.vlw");
   menuOption = loadFont("KristenITC-Regular-48.vlw");
-  gameFont = loadFont("ArialMT-48.vlw");
+  gameFont = loadFont("ArialMT-48.vlw");//for player stats
   player = new Player(300, 500);
   gameObjects = new ArrayList<GameObject>();
+  mode = 0;//mode controls menu and game screens
   score = 0;
   lives = 3;
-  mode = 0;
-  numEnemies = 20;
-  enemiesLeft = numEnemies;
-  keys = new boolean[1000];
-  gameOver = false;
-  levelCleared = false;
-  leftUp = rightUp = false;
-  soundtrack.loop();
+  numEnemies = 20;//level 1
+  difficulty = 0.2;//init to normal mode
+  ammoDiffic = 150;//init to normal mode
+  enemiesLeft = numEnemies;//enemies left updates as enemies die
+  keys = new boolean[1000];//only used in gameMode to move player (possibly too big?)
+  leftUp = rightUp = gameOver = levelCleared = false;//left up and right up implement low level physics on player object 
+  dead = false;//start alive
+  levelUp = true;//used to display current level to player at start of level
+  soundtrack.loop();//one mp3 file on loop (current game likely cleared before 5 mins)
   
 }//end setup
 
@@ -61,10 +51,12 @@ void draw()
     {
       levelCleared();
     }
+    
     gameScreen.loadLevel(mode);
+    
     if(dead)
     {
-      if(frameCount % 180 < 160 && lives > 0)
+      if(frameCount % 180 < 160 && lives > 0)//controls when and how long text is displayed for
       {
         textFont(title, 86);
         fill(255, 0, 0);
@@ -72,10 +64,11 @@ void draw()
       }
       else
       {
-        dead = false;
+        dead = false;//switch off after 1 iteration
       }
     }
-    if(levelUp && mode < 4 && mode > 0)
+    
+    if(levelUp && mode < 4 && mode > 0)//only display if in game mode
     {
       if(frameCount % 300 < 240)
       {
@@ -85,22 +78,19 @@ void draw()
       }
       else
       {
-        levelUp = false;
+        levelUp = false;//same as above
       }
       
     }
     
-    println(mode);
-    println(menuSelect);
-    
-}
+}//end setup()
 
 
 //resets the current level and player loses a life
 void die()
 {
-  dead = true;
-  if(lives > 0)
+  dead = true;//switches on display message
+  if(lives > 0)//if player still has lives reset the level
   {
       lives--;
       int enCount = 0;
@@ -119,16 +109,17 @@ void die()
       }
       enemiesLeft = enCount;
   }
-  else
+  else//else go to game over screen
   {
     mode = 8;
     menuSelect = 12;
   }
 }
 
-void levelCleared()
+
+void levelCleared()//advance through game levels
 {
-      if(mode <= 3)
+      if(mode <= 3)//only 3 levels
       {
         levelUp = true;
         enemiesLeft = 1;
@@ -136,6 +127,7 @@ void levelCleared()
         mode++;
       }
 }
+
 
 void displayStats(Player p)
 {
@@ -156,16 +148,18 @@ boolean checkKey(int k)
   return keys[k];
 }
 
-void resetGameObjects()
+
+void resetGameObjects()//clears the array list, array list changes between levels
 {
   gameObjects.clear();
 }
 
+
 void keyPressed()
 {
-  if(mode == 0 || mode == 4 || mode == 5 || mode == 6 || mode == 7 || mode == 8)
+  if(mode == 0 || mode == 4 || mode == 5 || mode == 6 || mode == 7 || mode == 8)//all menu screens
   {
-      if(key == 10)
+      if(key == 10)//return key
       {
         
         switch(menuSelect)
@@ -230,7 +224,7 @@ void keyPressed()
       }
 
       
-      if(keyCode == UP && mode != 7)
+      if(keyCode == UP && mode != 7)//scroll up menu options
       {
         menuSelect--;
         switch(mode)
@@ -258,7 +252,7 @@ void keyPressed()
         }//end switch
       }//end key == up
       
-      if(keyCode == DOWN && mode != 7)
+      if(keyCode == DOWN && mode != 7)//scroll down menu options
       {
         menuSelect++;
         switch(mode)
@@ -285,16 +279,16 @@ void keyPressed()
         }//end switch 
       }//end if key == down
      
-    if(keyCode == LEFT)
+    if(keyCode == LEFT && mode == 7)//left and right menu options for quit screen only
     {
       menuSelect = 10;
     }
-    if(keyCode == RIGHT)
+    if(keyCode == RIGHT && mode == 7)
     {
       menuSelect = 11;
     }
     
-  }//end if mode 0, 5 or 6
+  }//end if 
 
   else if(mode > 0 && mode < 4 )//in game mode
   {
@@ -308,7 +302,7 @@ void keyPressed()
     }
   }//end if game mode
   
-}
+}//end keyPressed()
 
 
 void keyReleased()

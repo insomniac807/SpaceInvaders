@@ -1,4 +1,4 @@
-class Enemy3 extends Enemy
+class Enemy3 extends Enemy//as 1 and 2 types but stronger
 {
   
   Enemy3(float x, float y)
@@ -25,7 +25,7 @@ class Enemy3 extends Enemy
       alive = false;
       en3die.play();
       en3die.rewind();
-      score += 3;
+      score += 5;
       health -= 1;
       gameObjects.add(new Explosion(x, y+20, size, size));
       enemiesLeft--;

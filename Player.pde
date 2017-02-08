@@ -6,7 +6,6 @@ class Player extends GameObject
   {
     this.x = x;
     this.y = y;
-    
     this.ammo = 200;
     this.sprite = loadImage("player.png");
     sprite.resize(60, 40);
@@ -35,14 +34,14 @@ class Player extends GameObject
       if( e instanceof Enemy )
       {
         Enemy a = (Enemy)e;
-        if(dist(this.x, this.y, a.x, a.y) < 30 && a.isAlive())
+        if(dist(this.x, this.y, a.x, a.y) < 30 && a.isAlive())//detects enemy player collision
         {
           gameObjects.add(new Explosion(this.x, this.y, 60, 60));
           die();
         }
       }
     }
-    if(this.x < -60)
+    if(this.x < -60)//screen scrolling capabilities 
     {
       this.x = 660;
     }
@@ -52,12 +51,12 @@ class Player extends GameObject
     }
     if(checkKey(LEFT))
     {
-      rightUp = false;
-      speed = 5;
+      rightUp = false;//stops any player movement to the right
+      speed = 5;//reset player speed to default
       this.x -= speed;
     }
     
-    if(leftUp)
+    if(leftUp)//dont come to a complete stop
     {
       if(speed >= 0)
       {
@@ -70,7 +69,7 @@ class Player extends GameObject
       }
     }
     
-    if(checkKey(RIGHT))
+    if(checkKey(RIGHT))//works same as left
     {
       leftUp = false;
       speed = 5;

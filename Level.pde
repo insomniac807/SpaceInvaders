@@ -1,3 +1,5 @@
+/*Setup code for menus and levels*/
+
 public class Level
 {
   
@@ -64,7 +66,7 @@ public class Level
   }
    
    
-  public void level1()
+  public void level1()//size of GameObject ArrayList will be 0 on level calls, ensures set up only occurs once at the start of each level
   {
     if(gameObjects.size() < 2)
     {
@@ -137,18 +139,18 @@ public class Level
         }
         for(int i=0; i<10; i++)
         {
-          gameObjects.add(new Enemy1(i*60+40, ypos-250));
+          gameObjects.add(new Enemy1(i*60+40, ypos-290));
         }
         for(int i=0; i<10; i++)
         {
-          gameObjects.add(new Enemy2(i*60+40, ypos-310));
+          gameObjects.add(new Enemy2(i*60+40, ypos-340));
         }
     }
     
   }
   
   
-  public void difficulty()
+  public void difficulty()//display code for difficulty menu
   {
     background(0);
     textFont(menuOption, 32);
@@ -220,7 +222,7 @@ public class Level
     
   }
   
-  public void controls()
+  public void controls()//displays game controls
   {
     background(0);
     textFont(title, 86);
@@ -246,7 +248,7 @@ public class Level
     text("Main Menu", width*0.35, height*0.9);
   }
   
-  public void winScreen()
+  public void winScreen()//displays win message screen
   {
     menuSelect = 12;
     background(0);
@@ -258,7 +260,7 @@ public class Level
     text("Main Menu", width/3, height*0.7);
   }
   
-  public void quitScreen()
+  public void quitScreen()//asks for quit confirmation
   {
     background(0);
     textFont(title, 86);

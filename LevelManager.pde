@@ -1,17 +1,15 @@
+/*Class containing control code. Decides which display code to run, 
+any menus or game levels*/
+
 public class LevelManager extends Level
 {
   int mode, level;
-  //boolean levelSetup;
   LevelManager()
   {
-    //levelSetup = false;
-    
   }
   
 
-  
-  
-  public void loadLevel(int levelNo)
+  public void loadLevel(int levelNo)//gets past mode from main class
   {
      switch(levelNo)
      {
@@ -46,7 +44,7 @@ public class LevelManager extends Level
   
   
   
-  public void playGame(int levelNo)
+  public void playGame(int levelNo)//gets passed mode from load level method
   {
     this.level = levelNo;
     if(levelNo == 1)

@@ -23,16 +23,16 @@ class Enemy extends GameObject
     if(!gameOver)
     {
       y += speed;
-      if(y > player.y && this.isAlive())
+      if(y > player.y && this.isAlive())//if alive enemy goes past player
       {
-        die();
+        die();//player die
       }
     }
     
     for( int i=0; i<gameObjects.size(); i++)
     {
       GameObject b = gameObjects.get(i);
-      if( b  instanceof Bullet )
+      if( b  instanceof Bullet )//collision detection
       {
           Bullet bullet = (Bullet) b;
           if(dist(bullet.x, bullet.y, this.x, this.y) < size/2)
@@ -40,13 +40,13 @@ class Enemy extends GameObject
             if(this.alive)
             {
               this.health --;
-              gameObjects.remove(i);
+              gameObjects.remove(i);//kill bullet
             }
           }   
       }//end if
     }//end for 
     
-    
+
   }//end update
   
   void resetHealth()

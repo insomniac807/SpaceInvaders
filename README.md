@@ -2,10 +2,6 @@
 Space Invaders Style Game made in Processing as part of DT228s OOP module 
 [![Video](http://4.bp.blogspot.com/_Odu7eqW6gAY/TFfUsRpZvYI/AAAAAAAAh5A/H2XXzGKA_3c/s1600/Space+Invader+Couch+by+Igor+Chak+01.jpg)](https://www.youtube.com/watch?v=KMusvw-UfcI&t=18s)
 
-Concept
-
-Rather than go for a very complex idea, I decided to go for a much simpiler game and put all the knowledge I have learned this year into practice as best I could. I have chosen simple game play to allow me to focus on getting other elements right when creating an enjoyable game. As well as trying to implement OOP concepts as best I could. There are 4 difficulty modes which affect the speed of the enemies and the ammo of the player. The screens are loaded from display classes, by control classes, and various switches determine different aspects as the player navigate through the game screens. I had hoped to add powerups such as shields, rockets and ammo drops, as well as enabling enemy fire, however I ran out of time and prefered to have a less sophisticated, finished product, than a complicated game full of bugs. The levels are kept intentionally short for demonstration and marking purposes. 
-
 Features
 
   Main Menu
